@@ -13,3 +13,10 @@ print(b)
 ## cümlede geçen kökleri bulur
 c=ml.metinde_gecen_kokleri_bul(corpus)
 print(c)
+
+## kelime_onerici ##
+d= ml.kelime_onerici("abuzer")
+print(d)
+
+## kelime_hecele ##
+e=ml.kelime_hecele("abdulkadir")
