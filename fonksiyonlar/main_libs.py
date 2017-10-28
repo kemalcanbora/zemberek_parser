@@ -3,14 +3,13 @@ from zemberek_connection.zem_conn import zemberek
 from tools.spector import sperator_fonk
 from tools.frekans_bul import frekans
 
-
 libjvmpath="/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/libjvm.so"
 zemberekJarpath="/home/kb/PycharmProjects/zemberek_parser/zemberek_connection/zemberek-tum-2.0.jar"
 
 zemberek_api= zemberek(libjvmpath,zemberekJarpath)
 
 
-                                ###############
+
                                 ## KULLANIMI ##
                                 ###############
 # 1) Örnek corpusun cümlelerini parcalara ayırır fonksiyonu ile parçalanır kelime-kelime haline getirilir
@@ -59,3 +58,24 @@ def metinde_gecen_kokleri_bul(corpus):
         except:
             continue
     return metin_kokler_lst
+
+def kelime_onerici(kelime):
+    yanit = zemberek_api.oner(kelime)
+    ## listeye döndürmek için böyle bir yöntem yaptım şimdilik
+    yanit=str(yanit).replace('"',"").replace("(","").replace(")","").replace("'","").split(",")
+    return (yanit) # listeye döndürdük
+
+def kelime_hecele(kelime):
+    try:
+        yanit = zemberek_api.hecele(kelime)
+        ## str  ile java string tipini python str tipine dönüştürdüm
+        ## listeye döndürmek için böyle bir yöntem yaptım şimdilik
+
+        yanit=(str(yanit).replace('"',"").replace("(","").replace(")","").replace("'","").split(","))
+
+    except   :
+        print(" '\033[1m'  << Kelime_hecele fonksiyonu >> Birden fazla kelime girdiniz")
+
+
+    return yanit
+
