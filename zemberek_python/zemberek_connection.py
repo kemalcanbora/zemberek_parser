@@ -1,8 +1,8 @@
 import jpype
 
 
-#    libjvm.so path like;
-#   "/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/libjvm.so"
+# libjvm.so path like;
+# "/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/libjvm.so"
 
 ## zemberek jar path
 ## /home/<user_name>/PycharmProjects/<proje_name>/../zemberek/zemberek-tum-2.0.jar

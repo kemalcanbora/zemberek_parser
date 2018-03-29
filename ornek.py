@@ -1,5 +1,6 @@
 from zemberek_python import main_libs as ml
 
+
 corpus = "merhaba bu bir python zemberek denemesidir,             bu denemeden garip yazılar"
 ## kelimeyi ögelerine ayır
 a = ml.ZemberekTool().ogelere_ayir("bakamadıklarımızdan")
