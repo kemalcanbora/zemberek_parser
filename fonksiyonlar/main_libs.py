@@ -1,7 +1,11 @@
 from nltk.corpus import stopwords
 import re
+
+from spacy.symbols import sort_nums
+
 from zemberek_connection.zem_conn import zemberek
 from collections import Counter
+import snowballstemmer
 
 libjvmpath = "/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/libjvm.so"
 zemberekJarpath = "/home/kb/PycharmProjects/zemberek_parser/zemberek_connection/zemberek-tum-2.0.jar"
@@ -69,20 +73,21 @@ class ZemberekTool:
             pass
 
     def metinde_gecen_kokleri_bul(self, corpus):
-        haberx = self.cumleyi_parcalara_ayir(corpus)
+        kelimeler = self.cumleyi_parcalara_ayir(corpus)
         metin_kokler_lst = []
-
-        for i, item in enumerate(haberx):
-
+        snow = snowballstemmer.stemmer('turkish')
+        for i, item in enumerate(kelimeler):
+            ## None degerlerin kok,içerik vs olmadıgı için NoneType hatası veriyor bu yüzden try-exp
+            ## eger tip bulmak istersen tip;ekler bulmak istersen ekler yaz ogelere_ayir fonksiyonunun dict kısmına bakabilirsin
             try:
-                ## None degerlerin kok,içerik vs olmadıgı için NoneType hatası veriyor bu yüzden try-exp
-                ## eger tip bulmak istersen tip;ekler bulmak istersen ekler yaz ogelere_ayir fonksiyonunun dict kısmına bakabilirsin
-                sonuc = (self.ogelere_ayir(haberx[i])["Kok"])
+                sonuc = self.ogelere_ayir(kelimeler[i])["Kok"]
                 metin_kokler_lst.append(sonuc)
-            except TypeError:
-                continue
+            except:
+                snow_result = snow.stemWord(kelimeler[i])
+                metin_kokler_lst.append(snow_result)
 
         return metin_kokler_lst
+
 
     def kelime_onerici(self, kelime):
         yanit = zemberek_api.oner(kelime)
