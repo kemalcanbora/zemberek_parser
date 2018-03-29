@@ -1,9 +1,9 @@
-from distutils.core import setup
+from setuptools import setup
 
 setup(
     name='zemberek_parser',
     version='1.0.0',
-    packages=['zemberek_parser'],
+    packages=['fonksiyonlar','zemberek_connection'],
     url='https://github.com/kemalcanbora/zemberek_parser',
     license='BSD',
     author='Kemalcan Bora',
