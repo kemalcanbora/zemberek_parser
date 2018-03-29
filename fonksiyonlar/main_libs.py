@@ -1,8 +1,7 @@
 from nltk.corpus import stopwords
+from nltk import download
 import re
-
-from spacy.symbols import sort_nums
-
+import ssl
 from zemberek_connection.zem_conn import zemberek
 from collections import Counter
 import snowballstemmer
@@ -88,7 +87,6 @@ class ZemberekTool:
 
         return metin_kokler_lst
 
-
     def kelime_onerici(self, kelime):
         yanit = zemberek_api.oner(kelime)
         yanit = str(yanit).replace('"', "").replace("(", "").replace(")", "").replace("'", "").split(",")
@@ -107,3 +105,13 @@ class ZemberekTool:
 
         except:
             print(" '\033[1m'  << Kelime_hecele fonksiyonu >> Birden fazla kelime girdiniz")
+
+    def nltk_download(self):
+        try:
+            _create_unverified_https_context = ssl._create_unverified_context
+        except AttributeError:
+            pass
+        else:
+            ssl._create_default_https_context = _create_unverified_https_context
+
+        download()
