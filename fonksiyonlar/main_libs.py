@@ -106,7 +106,8 @@ class ZemberekTool:
         except:
             print(" '\033[1m'  << Kelime_hecele fonksiyonu >> Birden fazla kelime girdiniz")
 
-    def nltk_download(self):
+class nltk_download:
+    def __init__(self):
         try:
             _create_unverified_https_context = ssl._create_unverified_context
         except AttributeError:
