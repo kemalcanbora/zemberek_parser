@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name='zemberek_parser',
     version='1.0.0',
-    packages=['fonksiyonlar','zemberek_connection'],
+    packages=['zemberek_python'],
     url='https://github.com/kemalcanbora/zemberek_parser',
     license='BSD',
     author='Kemalcan Bora',

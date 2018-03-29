@@ -1,4 +1,4 @@
-from fonksiyonlar import main_libs as ml
+from zemberek_python import main_libs as ml
 
 corpus = "merhaba bu bir python zemberek denemesidir,             bu denemeden garip yazılar"
 ## kelimeyi ögelerine ayır
@@ -22,4 +22,4 @@ e = ml.ZemberekTool().kelime_hecele("abdulkadir")
 print(e)
 
 ## nltk files download ##
-z = ml.nltk_download()
+# z = ml.nltk_download()
