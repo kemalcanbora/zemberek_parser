@@ -22,4 +22,4 @@ e = ml.ZemberekTool().kelime_hecele("abdulkadir")
 print(e)
 
 ## nltk files download ##
-z = ml.ZemberekTool().nltk_download()
+z = ml.nltk_download()
