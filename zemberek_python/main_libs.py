@@ -4,10 +4,19 @@ import snowballstemmer
 from nltk import download
 from nltk.corpus import stopwords
 from .zemberek_connection import zemberek
+import os
 
+
+def degiskenler():
+    libjvm = input("libjvm: ")
+    if not os.path.exists("zemberek_python/config.txt"):
+        file = open("zemberek_python/config.txt", "w")
+        file.write(libjvm)
+        sonuc = open("zemberek_python/config.txt", "w")
+        return sonuc
 
 libjvmpath = "/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/libjvm.so"
-zemberekJarpath = "/home/kb/PycharmProjects/zemberek_parser/zemberek_python/zemberek-tum-2.0.jar"
+zemberekJarpath = "./zemberek_python/zemberek-tum-2.0.jar"
 
 zemberek_api = zemberek(libjvmpath, zemberekJarpath)
 
