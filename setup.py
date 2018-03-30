@@ -8,7 +8,7 @@ setup(
     name='zemberek_parser',
     version='1.0.0',
     packages=['zemberek_python'],
-    ext_modules=[Extension('zemberek-tum-2.0.jar', ['zemberek-tum-2.0.jar'])],
+    package_data ={'zemberek-tum-2.0.jar'},
     url='https://github.com/kemalcanbora/zemberek_parser',
     license='BSD',
     author='Kemalcan Bora',
