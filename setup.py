@@ -7,7 +7,7 @@ reqs = [str(ir.req) for ir in install_reqs]
 setup(
     name='zemberek_parser',
     version='1.0.0',
-    packages=['zemberek_python'],
+    packages=['zemberek_python','zemberek-tum-2.0.jar'],
     url='https://github.com/kemalcanbora/zemberek_parser',
     license='BSD',
     author='Kemalcan Bora',
