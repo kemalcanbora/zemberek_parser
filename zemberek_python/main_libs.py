@@ -8,18 +8,18 @@ import os
 
 libjvmpath = None
 #"/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/libjvm.so"
-if not os.path.exists("config.txt"):
+if not os.path.exists(os.getcwd()+"/config.txt"):
     libjvm = input("libjvm: ")
-    file = open("config.txt", "w")
+    file = open(os.getcwd()+"/config.txt", "w")
     file.write(libjvm)
-    d_libjvm = open("config.txt", "r")
+    d_libjvm = open(os.getcwd()+"/config.txt", "r")
     libjvmpath = d_libjvm
 else:
-    d_libjvm = open("config.txt").read()
+    d_libjvm = open(os.getcwd()+"/config.txt").read()
     libjvmpath = d_libjvm
 
-zemberekJarpath = "zemberek_python/zemberek-tum-2.0.jar"
-
+zemberekJarpath = os.getcwd()+"/zemberek-tum-2.0.jar"
+print(zemberekJarpath)
 zemberek_api = zemberek(libjvmpath, zemberekJarpath)
 
 
