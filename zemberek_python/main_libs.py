@@ -4,12 +4,11 @@ import snowballstemmer
 from nltk import download
 from nltk.corpus import stopwords
 from .zemberek_connection import zemberek
+from .settings import f_libjvmpath,f_zemberekJarpath
 
-libjvmpath = "/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/libjvm.so"
-zemberekJarpath = "/home/kb/PycharmProjects/zemberek_parser/zemberek_python/zemberek-tum-2.0.jar"
 
-zemberek_api = zemberek(libjvmpath, zemberekJarpath)
-
+zemberek_api = zemberek(f_libjvmpath(),
+                        f_zemberekJarpath())
 
 ## KULLANIMI ##
 ###############

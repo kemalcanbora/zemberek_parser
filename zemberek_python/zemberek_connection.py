@@ -9,9 +9,12 @@ import jpype
 
 
 def zemberek(libjvmpath, zemberekJarpath):
-    jpype.startJVM(libjvmpath, "-Djava.class.path=" + zemberekJarpath, "-ea")
-    Tr = jpype.JClass("net.zemberek.tr.yapi.TurkiyeTurkcesi")
-    tr = Tr()
-    Zemberek = jpype.JClass("net.zemberek.erisim.Zemberek")
-    zemberek_r = Zemberek(tr)
-    return zemberek_r
+    try:
+        jpype.startJVM(libjvmpath, "-Djava.class.path=" + zemberekJarpath, "-ea")
+        Tr = jpype.JClass("net.zemberek.tr.yapi.TurkiyeTurkcesi")
+        tr = Tr()
+        Zemberek = jpype.JClass("net.zemberek.erisim.Zemberek")
+        zemberek_r = Zemberek(tr)
+        return zemberek_r
+    except:
+        print("libjvm veya zemberek.jar dosyalarının pathleri yanlış yerde! ")
