@@ -10,7 +10,7 @@ setup(
     packages=['zemberek_python'],
     url='https://github.com/kemalcanbora/zemberek_parser',
     license='BSD',
-    package_data = { '' : ['/home/kb/PycharmProjects/zemberek_parser/zemberek_python/zemberek-tum-2.0.jar']},
+    package_data = { '' : ['zemberek-tum-2.0.jar']},
     author='Kemalcan Bora',
     author_email='kemalcanbora@gmail.com',
     description='zemberek kutuphanesinin lite python versiyonu',
