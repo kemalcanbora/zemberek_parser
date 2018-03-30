@@ -4,22 +4,10 @@ import snowballstemmer
 from nltk import download
 from nltk.corpus import stopwords
 from .zemberek_connection import zemberek
-import os
 
-libjvmpath = None
-#"/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/libjvm.so"
-if not os.path.exists(os.getcwd()+"/config.txt"):
-    libjvm = input("libjvm: ")
-    file = open(os.getcwd()+"/config.txt", "w")
-    file.write(libjvm)
-    d_libjvm = open(os.getcwd()+"/config.txt", "r")
-    libjvmpath = d_libjvm
-else:
-    d_libjvm = open(os.getcwd()+"/config.txt").read()
-    libjvmpath = d_libjvm
+libjvmpath = "/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/libjvm.so"
+zemberekJarpath = "/home/kb/PycharmProjects/zemberek_parser/zemberek_python/zemberek-tum-2.0.jar"
 
-zemberekJarpath = os.getcwd()+"/zemberek-tum-2.0.jar"
-print(zemberekJarpath)
 zemberek_api = zemberek(libjvmpath, zemberekJarpath)
 
 
