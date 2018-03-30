@@ -3,12 +3,8 @@ from collections import Counter
 import snowballstemmer
 from nltk import download
 from nltk.corpus import stopwords
-from .zemberek_connection import zemberek
-from .settings import f_libjvmpath,f_zemberekJarpath
+import jpype
 
-
-zemberek_api = zemberek(f_libjvmpath(),
-                        f_zemberekJarpath())
 
 ## KULLANIMI ##
 ###############
@@ -17,10 +13,27 @@ zemberek_api = zemberek(f_libjvmpath(),
 # 2) Parçalara ayrılmış olan haber cümlenin öğelerine ayrılır
 # 3) Cümlenin öğelerine ayrılmış olan kelimelerin kökleri bulunur bir listeye konulur
 
+class zemberek_api:
+    def __init__(self,libjvmpath,zemberekJarpath):
+        self.libjvmpath = libjvmpath
+        self.zemberekJarpath = zemberekJarpath
+
+    def zemberek(self):
+        try:
+            jpype.startJVM(self.libjvmpath, "-Djava.class.path=" + self.zemberekJarpath, "-ea")
+            Tr = jpype.JClass("net.zemberek.tr.yapi.TurkiyeTurkcesi")
+            tr = Tr()
+            Zemberek = jpype.JClass("net.zemberek.erisim.Zemberek")
+            zemberek_r = Zemberek(tr)
+            return zemberek_r
+        except:
+            print("libjvm veya zemberek.jar dosyalarının pathleri yanlış yerde! ")
+
+
 
 class ZemberekTool:
-    def __init__(self):
-        pass
+    def __init__(self,zemberek):
+        self.zemberek_api = zemberek
 
     def sperator_fonk(self, text):
         sperator_r = re.sub(r'[^\w\s]', ' ', text).lower()
@@ -45,7 +58,7 @@ class ZemberekTool:
 
     def ogelere_ayir(self, kelime):
         ## bu  kısım tekil kelime
-        yanit = zemberek_api.kelimeCozumle(kelime)
+        yanit = self.zemberek_api.kelimeCozumle(kelime)
         if len(yanit) < 1:
             return None
 
@@ -86,7 +99,7 @@ class ZemberekTool:
         return metin_kokler_lst
 
     def kelime_onerici(self, kelime):
-        yanit = zemberek_api.oner(kelime)
+        yanit = self.zemberek_api.oner(kelime)
         yanit = str(yanit).replace('"', "").replace("(", "").replace(")", "").replace("'", "").split(",")
 
         return yanit
@@ -94,7 +107,7 @@ class ZemberekTool:
     def kelime_hecele(self, kelime):
 
         try:
-            yanit = zemberek_api.hecele(kelime)
+            yanit = self.zemberek_api.hecele(kelime)
             ## str  ile java string tipini python str tipine dönüştürdüm
             ## listeye döndürmek için böyle bir yöntem yaptım şimdilik
             yanit = str(yanit).replace('"', "").replace("(", "").replace(")", "").replace("'", "").split(",")
