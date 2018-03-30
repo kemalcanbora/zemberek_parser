@@ -35,7 +35,7 @@ class ZemberekTool:
     def __init__(self,zemberek):
         self.zemberek_api = zemberek
 
-    def sperator_fonk(self, text):
+    def separator(self, text):
         sperator_r = re.sub(r'[^\w\s]', ' ', text).lower()
         sperator_r = ' '.join(sperator_r.split())
 
@@ -49,7 +49,7 @@ class ZemberekTool:
     def cumleyi_parcalara_ayir(self, corpus):
         ## cümlede gereksiz olan işaretlemeler ve boşluklar silindi
         ## haber içersinde kaç tane hangi kelimeden var
-        body = self.sperator_fonk(str(corpus))
+        body = self.separator(str(corpus))
         corpus_with_split = self.frekans(body.split())
         stopwords_list = stopwords.words('turkish')
         ## gereksiz bağlaçlar silindi
