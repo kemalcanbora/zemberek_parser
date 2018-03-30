@@ -19,9 +19,10 @@ else:
     libjvmpath = d_libjvm
 
 zemberekJarpath = "zemberek-tum-2.0.jar"
+
 print(zemberekJarpath)
 print(libjvmpath)
-zemberek_api = zemberek(str(libjvmpath), zemberekJarpath)
+zemberek_api = zemberek(libjvmpath, zemberekJarpath)
 
 
 ## KULLANIMI ##
