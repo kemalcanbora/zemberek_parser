@@ -1,4 +1,8 @@
 from setuptools import setup
+from pip.req import parse_requirements
+install_reqs = parse_requirements("requirements.txt")
+
+reqs = [str(ir.req) for ir in install_reqs]
 
 setup(
     name='zemberek_parser',
@@ -11,5 +15,7 @@ setup(
     description='zemberek kutuphanesinin lite python versiyonu',
     classifiers=[
         "License :: OSI Approved :: BSD License",
-    ]
+    ],
+    install_requires=reqs
+
 )
