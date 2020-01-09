@@ -2,7 +2,7 @@
 Zemberek NLP kütüphanesini Python 3 ile kullanabilmenizi sağlar.
 
 ## Kullanım
-`libjvmpath` ve `zemberekJarpath` değişkenleri için kendi pathlerinizi yazın. `libjvm.so` dosyasının Windows muadili `jvm.dll`'dir. 
+`libjvmpath` argümanı için kendi yolunuzu yazın. `libjvm.so` dosyasının Windows muadili `jvm.dll`'dir. Bu argümana bir değer verilmez ise `JAVA_HOME` veya `JRE_HOME` ortam değişkenlerine göre otomatik olarak bulunmaya çalışılacaktır. Bu repo ile gelen `zemberek-tum-2.0.jar` dosyasını farklı bir klasöre taşıdıysanız bu yolu da `zemberekJarpath` argümanına atamalısınız.
 `stopwords.words('turkish')` komutu ile Türkçe stopwords kullanmak istiyorsanız, `~/nltk_data/corpora/stopwords/turkish` dosyasının var olduğuna emin olunuz.
 
 ```python
