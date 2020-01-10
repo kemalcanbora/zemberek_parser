@@ -19,7 +19,7 @@ def _find_libjvm():
     jre_home = os.environ.get('JRE_HOME', None)
     if java_home is not None:
         return _find_libjvm_in_java_home(java_home)
-    elif JRE_HOME is not None:
+    elif jre_home is not None:
         return _find_libjvm_in_jre_home(jre_home)
     else:
         raise ValueError('Either set one of JAVA_HOME and JRE_HOME environment variables, or pass a path value to libjvmpath argument.')
