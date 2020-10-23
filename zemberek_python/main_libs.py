@@ -14,59 +14,35 @@ import os
 # 3) Cümlenin öğelerine ayrılmış olan kelimelerin kökleri bulunur bir listeye konulur
 
 
-def _find_libjvm():
-    java_home = os.environ.get('JAVA_HOME', None)
-    jre_home = os.environ.get('JRE_HOME', None)
-    if java_home is not None:
-        return _find_libjvm_in_java_home(java_home)
-    elif jre_home is not None:
-        return _find_libjvm_in_jre_home(jre_home)
-    else:
-        raise ValueError('Either set one of JAVA_HOME and JRE_HOME environment variables, or pass a path value to libjvmpath argument.')
-    
-def _find_libjvm_in_java_home(path):
-    if os.name == 'nt': # windows
-        path = os.path.join(path, 'jre', 'bin', 'server', 'jvm.dll')
-    else:
-        path = os.path.join(path, 'jre', 'lib', 'amd64', 'server', 'libjvm.so')
-    if os.path.exists(path):
-        return path
-    else:
-        raise IOError('Could not find libjvm in {}. Please make sure that you set JAVA_HOME environment variable correctly, or pass a value to libjvmpath argument'.format(path))
-        
-def _find_libjvm_in_jre_home(path):
-    if os.name == 'nt': # windows
-        path = os.path.join(path, 'bin', 'server', 'jvm.dll')
-    else:
-        path = os.path.join(path, 'lib', 'amd64', 'server', 'libjvm.so')
-    if os.path.exists(path):
-        return path
-    else:
-        raise IOError('Could not find libjvm in {}. Please make sure that you set JRE_HOME environment variable correctly, or pass a value to libjvmpath argument'.format(path))
-
 class zemberek_api:
-    def __init__(self,libjvmpath=None,zemberekJarpath=os.path.join(os.path.dirname(__file__), 'zemberek-tum-2.0.jar')):
-        if libjvmpath is not None:
-            self.libjvmpath = libjvmpath
-        else:
-            self.libjvmpath = _find_libjvm()
+    def __init__(self, libjvmpath=None, zemberekJarpath=None):
+
+        if libjvmpath is None:
+            libjvmpath = jpype.getDefaultJVMPath()
+
+        self.libjvmpath = libjvmpath
+
+        if zemberekJarpath is None:
+            zemberekJarpath = os.path.join(os.path.dirname(__file__), 'zemberek-tum-2.0.jar')
+            assert os.file.exists(zemberekJarpath)
         self.zemberekJarpath = zemberekJarpath
 
     def zemberek(self):
         try:
-            jpype.startJVM(self.libjvmpath, "-Djava.class.path=" + self.zemberekJarpath, "-ea")
-            Tr = jpype.JClass("net.zemberek.tr.yapi.TurkiyeTurkcesi")
-            tr = Tr()
+
+            if not jpype.isJVMStarted():
+                jpype.startJVM(jvmpath=self.libjvmpath, classpath=[self.zemberekJarpath])
+            TurkiyeTurkcesi = jpype.JClass("net.zemberek.tr.yapi.TurkiyeTurkcesi")
+            turkiye_turkcesi = TurkiyeTurkcesi()
             Zemberek = jpype.JClass("net.zemberek.erisim.Zemberek")
-            zemberek_r = Zemberek(tr)
+            zemberek_r = Zemberek(turkiye_turkcesi)
             return zemberek_r
         except:
             print("libjvm veya zemberek.jar dosyalarının pathleri yanlış yerde! ")
 
 
-
 class ZemberekTool:
-    def __init__(self,zemberek):
+    def __init__(self, zemberek):
         self.zemberek_api = zemberek
 
     def separator(self, text):
@@ -98,19 +74,25 @@ class ZemberekTool:
 
         try:
             x = str(yanit[0])  # java yanıtını str'e dönüştürdüm
-            words = [x.replace('{', '')
-                         .replace('}', '')
-                         .replace("Icerik", '')
-                         .replace("Kok", '')
-                         .replace("Ekler", '')
-                         .replace(":", '')
-                         .replace("tip", ' ')
-                         .replace("  ", ",")
-                         .replace(" ", "")]
+            words = [
+                x.replace('{', '')
+                .replace('}', '')
+                .replace("Icerik", '')
+                .replace("Kok", '')
+                .replace("Ekler", '')
+                .replace(":", '')
+                .replace("tip", ' ')
+                .replace("  ", ",")
+                .replace(" ", "")
+            ]
             words = ','.join(words)
             cumlenin_ogeleri = [value for value in words.split(',')]
-            dict = ({"Icerik": cumlenin_ogeleri[0], "Kok": cumlenin_ogeleri[1], "tip": cumlenin_ogeleri[2],
-                     "Ekler": cumlenin_ogeleri[3]})
+            dict = {
+                "Icerik": cumlenin_ogeleri[0],
+                "Kok": cumlenin_ogeleri[1],
+                "tip": cumlenin_ogeleri[2],
+                "Ekler": cumlenin_ogeleri[3],
+            }
 
             return dict
         except:

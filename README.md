@@ -7,8 +7,10 @@ Zemberek NLP kütüphanesini Python 3 ile kullanabilmenizi sağlar.
 
 ```python
 from zemberek_python import main_libs as ml
-zemberek_api = ml.zemberek_api(libjvmpath="/usr/lib/jvm/java-8-oracle/jre/lib/amd64/server/libjvm.so",
-                            zemberekJarpath="./zemberek_python/zemberek-tum-2.0.jar").zemberek()
+zemberek_api = ml.zemberek_api(
+    libjvmpath="/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/libjvm.so",
+    zemberekJarpath="./zemberek_python/zemberek-tum-2.0.jar",
+).zemberek()
 
 corpus = "merhaba bu bir python zemberek denemesidir,             bu denemeden garip yazılar"
 ## kelimeyi ögelerine ayır
