@@ -29,11 +29,11 @@ class zemberek_api:
 
     def zemberek(self):
         try:
-
             if not jpype.isJVMStarted():
                 jpype.startJVM(jvmpath=self.libjvmpath, classpath=[self.zemberekJarpath])
             TurkiyeTurkcesi = jpype.JClass("net.zemberek.tr.yapi.TurkiyeTurkcesi")
             turkiye_turkcesi = TurkiyeTurkcesi()
+
             Zemberek = jpype.JClass("net.zemberek.erisim.Zemberek")
             zemberek_r = Zemberek(turkiye_turkcesi)
             return zemberek_r
