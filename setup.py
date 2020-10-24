@@ -1,8 +1,15 @@
 from setuptools import setup
-from pip.req import parse_requirements
+
+try:  # for pip >= 10
+    from pip._internal.req import parse_requirements
+    requirement_field_name = 'requirement'
+except ImportError:  # for pip <= 9.0.3
+    from pip.req import parse_requirements
+    requirement_field_name = 'req'
+
 install_reqs = parse_requirements("requirements.txt", session='k')
 
-reqs = [str(ir.req) for ir in install_reqs]
+reqs = [str(getattr(ir, requirement_field_name)) for ir in install_reqs]
 
 setup(
     name='zemberek_parser',
