@@ -5,6 +5,8 @@ from nltk import download
 from nltk.corpus import stopwords
 import jpype
 import os
+from zemberek_python.settings import *
+
 
 ## KULLANIMI ##
 ###############
@@ -15,7 +17,9 @@ import os
 
 
 class zemberek_api:
-    def __init__(self, libjvmpath=None, zemberekJarpath=None):
+    def __init__(self,
+                 libjvmpath=libjvmpath,
+                 zemberekJarpath=zemberekJarpath):
 
         if libjvmpath is None:
             libjvmpath = jpype.getDefaultJVMPath()
@@ -24,7 +28,7 @@ class zemberek_api:
 
         if zemberekJarpath is None:
             zemberekJarpath = os.path.join(os.path.dirname(__file__), 'zemberek-tum-2.0.jar')
-            assert os.file.exists(zemberekJarpath)
+            assert os.path.exists(zemberekJarpath)
         self.zemberekJarpath = zemberekJarpath
 
     def zemberek(self):
@@ -42,8 +46,12 @@ class zemberek_api:
 
 
 class ZemberekTool:
-    def __init__(self, zemberek):
-        self.zemberek_api = zemberek
+
+    def __init__(self,
+                 libjvmpath=libjvmpath,
+                 zemberekJarpath=zemberekJarpath):
+        super(ZemberekTool, self).__init__()
+        self.zemberekapi = zemberek_api(libjvmpath, zemberekJarpath).zemberek()
 
     def separator(self, text):
         sperator_r = re.sub(r'[^\w\s]', ' ', text).lower()
@@ -57,46 +65,31 @@ class ZemberekTool:
         return counts
 
     def cumleyi_parcalara_ayir(self, corpus):
-        ## cümlede gereksiz olan işaretlemeler ve boşluklar silindi
-        ## haber içersinde kaç tane hangi kelimeden var
         body = self.separator(str(corpus))
         corpus_with_split = self.frekans(body.split())
         stopwords_list = stopwords.words('turkish')
-        ## gereksiz bağlaçlar silindi
         filtered_words = [word for word in corpus_with_split if word not in stopwords_list]
         return filtered_words
 
     def ogelere_ayir(self, kelime):
         ## bu  kısım tekil kelime
-        yanit = self.zemberek_api.kelimeCozumle(kelime)
-        if len(yanit) < 1:
+        result = self.zemberekapi.kelimeCozumle(kelime)
+
+        if len(result) < 1:
             return None
 
-        try:
-            x = str(yanit[0])  # java yanıtını str'e dönüştürdüm
-            words = [
-                x.replace('{', '')
-                .replace('}', '')
-                .replace("Icerik", '')
-                .replace("Kok", '')
-                .replace("Ekler", '')
-                .replace(":", '')
-                .replace("tip", ' ')
-                .replace("  ", ",")
-                .replace(" ", "")
-            ]
-            words = ','.join(words)
-            cumlenin_ogeleri = [value for value in words.split(',')]
-            dict = {
-                "Icerik": cumlenin_ogeleri[0],
-                "Kok": cumlenin_ogeleri[1],
-                "tip": cumlenin_ogeleri[2],
-                "Ekler": cumlenin_ogeleri[3],
-            }
+        result = str(result[0])  # java yanıtını str'e dönüştürdüm
+        result = result.replace("}", "").replace("  ", " ")
 
-            return dict
-        except:
-            pass
+        icerik = re.search('Icerik: (.*) Kok: ', result).group(1)
+        kok = re.search('Kok: (.*) tip:', result).group(1)
+        tip = re.search(' tip:(.*) Ekler:', result).group(1)
+        ekler = re.search(' Ekler:(.*)', result).group(1)
+
+        return dict(icerik=icerik,
+                    kok=kok,
+                    tip=tip,
+                    ekler=ekler)
 
     def metinde_gecen_kokleri_bul(self, corpus):
         kelimeler = self.cumleyi_parcalara_ayir(corpus)
@@ -115,21 +108,12 @@ class ZemberekTool:
         return metin_kokler_lst
 
     def kelime_onerici(self, kelime):
-        yanit = self.zemberek_api.oner(kelime)
-        yanit = str(yanit).replace('"', "").replace("(", "").replace(")", "").replace("'", "").split(",")
 
-        return yanit
+        return self.zemberekapi.oner(kelime)
 
     def kelime_hecele(self, kelime):
-
         try:
-            yanit = self.zemberek_api.hecele(kelime)
-            ## str  ile java string tipini python str tipine dönüştürdüm
-            ## listeye döndürmek için böyle bir yöntem yaptım şimdilik
-            yanit = str(yanit).replace('"', "").replace("(", "").replace(")", "").replace("'", "").split(",")
-
-            return yanit
-
+            return self.zemberekapi.hecele(kelime)
         except:
             print(" '\033[1m'  << Kelime_hecele fonksiyonu >> Birden fazla kelime girdiniz")
 
@@ -142,5 +126,4 @@ class nltk_download:
             pass
         else:
             ssl._create_default_https_context = _create_unverified_https_context
-
         download()
