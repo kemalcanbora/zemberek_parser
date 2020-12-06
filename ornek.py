@@ -42,5 +42,5 @@ print(test2)
 
 
 # convert pdf to txt
-convert = pdfconverter.PDFParser("./example.pdf")
+convert = pdfconverter.PDFParser("./example.pdf").parse()
 print(convert)
