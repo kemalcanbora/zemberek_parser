@@ -60,4 +60,4 @@ print(test2)
 ##### Yeni yenilik notları
  - <a href="https://github.com/yogurt-cultures/kefir">Kefir</a> eklendi! 
  - Buglar düzeltildi bir tık daha derli toplu oldu
- 
+ - PDFleri metine dönüştürme fonksiyonu eklendi
