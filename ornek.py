@@ -1,6 +1,7 @@
 from zemberek_python.main_libs import nltk_download, ZemberekTool
 from kefir.predication import personal, inferential
 from kefir.subject import Person
+from tika import pdfconverter
 
 zemberekTool = ZemberekTool()
 
@@ -38,3 +39,8 @@ print(test1)
 # inferential mood (-miş in turkish)
 test2 = inferential('öğretmen', Person.SECOND, is_plural=False)
 print(test2)
+
+
+# convert pdf to txt
+convert = pdfconverter.PDFParser("./example.pdf")
+print(convert)
