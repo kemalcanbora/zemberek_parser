@@ -11,49 +11,43 @@ zemberekJarpath değişkenleri aracılığı ile path verebilirsiniz.
 zemberekTool = ZemberekTool(libjvmpath = libpath, 
                             zemberekJarpath = zemberekJaryolu )
 ```
+MacOS'da otomatik olarak jar dosyasını bulamıyor zemberek_python içerisinde ekli olan dosyanın yolunu verebilirsiniz. Settings.py dosyasını editleyebilirsiniz.
+
 
 #### Genel Bakış
 ```python
-from zemberek_python.main_libs import nltk_download, ZemberekTool
-from kefir.predication import personal, inferential
-from kefir.subject import Person
 
-zemberekTool = ZemberekTool()
+# Tool'da bulunan bazı fonksiyonlar
 
+- KELIMEYI_OGELERINE_AYIR
+- CUMLEDE_GECEN_KOKLERI_BUL
+- CUMLEYI_PARCALARA_AYIR
+- KELIME_ONERICI
+- KELIME_HECELE
+- NLTK_FILES_DOWNLOAD
+- PERSONIFICATION_COPULA
+- INFERENTIAL_MOOD
+- CONVERT_PDF_TO_TXT
+- SENTENCE_CORRECTOR
+```
+#### Örnekler
+```python
+from settings import Run, Tool
 
-corpus = "merhaba bu bir python zemberek denemesidir, bu denemeden garip yazılar"
+text = "merhaba"
+result = Run(text, Tool.KELIME_HECELE)
+print(result)
 
+# output: ['mer', 'ha', 'ba']
 
-## kelimeyi ögelerine ayır
-a = zemberekTool.ogelere_ayir("bakamadıklarımızdan")
-print(a)
+```
+```python
+from settings import Run, Tool
 
-## cümleyip gereksiz eklerden bosluklardan ayırır temizler sunar
-b = zemberekTool.cumleyi_parcalara_ayir(corpus)
-print(b)
-
-## cümlede geçen kökleri bulur
-c = zemberekTool.metinde_gecen_kokleri_bul(corpus)
-print(c)
-
-## kelime_onerici ##
-d = zemberekTool.kelime_onerici("abuzer")
-print(d)
-
-## kelime_hecele ##
-e = zemberekTool.kelime_hecele("abdulkadir")
-print(e)
-
-# nltk files download ##
-download_NLTK = nltk_download()
-
-# personification copula
-test1 = personal('gezegenli', Person.FIRST, is_plural=True)
-print(test1)
-
-# inferential mood (-miş in turkish)
-test2 = inferential('öğretmen', Person.SECOND, is_plural=False)
-print(test2)
+text = "gezegnde bi vibüs var"
+result = Run(text, Tool.SENTENCE_CORRECTOR)
+print(result)
+# output:  gezende bir virüs var
 ```
 
 
@@ -61,3 +55,8 @@ print(test2)
  - <a href="https://github.com/yogurt-cultures/kefir">Kefir</a> eklendi! 
  - Buglar düzeltildi bir tık daha derli toplu oldu
  - PDFleri metine dönüştürme fonksiyonu eklendi
+ - <a href="https://github.com/StarlangSoftware/TurkishSpellChecker-Py"> TurkishSpellChecker-Py </a> eklendi
+
+##### Bug ve Diğer durumlar
+ - Kütüphaneyi kullandığınızda karşılaştığınız hataları belirtirseniz (PR, MR açabilirsiniz veya direk <a href="https://www.linkedin.com/in/kemalcan-bora-8b702926/"> bana </a> ulaşabilirsiniz)
+ - Tez veya çalışmanızda repoyu kaynak verirseniz başka insanlar da faydalanabilir.
