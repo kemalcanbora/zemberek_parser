@@ -31,8 +31,9 @@ MacOS'da otomatik olarak jar dosyasını bulamıyor zemberek_python içerisinde 
 - SENTENCE_CORRECTOR
 ```
 #### Örnekler
+
 ```python
-from settings import Run, Tool
+from zemberek_parser import Run, Tool
 
 text = "merhaba"
 result = Run(text, Tool.KELIME_HECELE)
@@ -41,8 +42,9 @@ print(result)
 # output: ['mer', 'ha', 'ba']
 
 ```
+
 ```python
-from settings import Run, Tool
+from zemberek_parser import Run, Tool
 
 text = "gezegnde bi vibüs var"
 result = Run(text, Tool.SENTENCE_CORRECTOR)

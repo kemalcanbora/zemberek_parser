@@ -7,13 +7,12 @@ except ImportError:  # for pip <= 9.0.3
     from pip.req import parse_requirements
     requirement_field_name = 'req'
 
-install_reqs = parse_requirements("requirements.txt", session='k')
-
-reqs = [str(getattr(ir, requirement_field_name)) for ir in install_reqs]
+with open("requirements.txt") as f:
+    dependencies = [line for line in f if "==" in line]
 
 setup(
     name='zemberek_parser',
-    version='1.0.0',
+    version='1.0.1',
     packages=['zemberek_python'],
     url='https://github.com/kemalcanbora/zemberek_parser',
     license='BSD',
@@ -24,6 +23,7 @@ setup(
     classifiers=[
         "License :: OSI Approved :: BSD License",
     ],
-    install_requires=reqs
+    install_requires=dependencies
+
 
 )
