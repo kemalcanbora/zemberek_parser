@@ -3,12 +3,12 @@ import os
 from core.main_libs import nltk_download, ZemberekTool
 from kefir.subject import Person
 from kefir.predication import personal, inferential
-from tika import pdfconverter
 from MorphologicalAnalysis.FsmMorphologicalAnalyzer import FsmMorphologicalAnalyzer
 from SpellChecker.SimpleSpellChecker import SimpleSpellChecker
 from Corpus.Sentence import Sentence
 
 zemberekTool = ZemberekTool()
+
 
 class Tool:
     KELIMEYI_OGELERINE_AYIR: str = "KELIMEYI_OGELERINE_AYIR"
@@ -64,19 +64,13 @@ class Run(Tool):
             if self.result is None:
                 self.result = "Cümle yerine kelime girmeniz gerekiyor"
 
-        if self.example == Tool.CONVERT_PDF_TO_TXT:
-            self.result = pdfconverter.PDFParser(pdf_path).parse()
-            if self.result is None:
-                self.result = "PDF path yanlış olabilir veya PDF olmayabilir"
-
         if self.example == Tool.SENTENCE_CORRECTOR:
-            fsm = FsmMorphologicalAnalyzer(os.getcwd()+"/SpellChecker/turkish_dictionary.txt",
-                                           os.getcwd()+"/SpellChecker/turkish_misspellings.txt",
-                                           os.getcwd()+"/SpellChecker/turkish_finite_state_machine.xml")
+            fsm = FsmMorphologicalAnalyzer(os.getcwd() + "/SpellChecker/turkish_dictionary.txt",
+                                           os.getcwd() + "/SpellChecker/turkish_misspellings.txt",
+                                           os.getcwd() + "/SpellChecker/turkish_finite_state_machine.xml")
             spellChecker = SimpleSpellChecker(fsm)
             sentence = Sentence(self.corpus)
             self.result = spellChecker.spellCheck(sentence)
-
 
     def __str__(self):
         return str(self.result)
