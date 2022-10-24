@@ -13,7 +13,7 @@ with open("requirements.txt") as f:
 setup(
     name='zemberek_parser',
     version='1.1.1',
-    packages=['core', 'core.kefir_', 'core.spellChecker', 'core.tika_', 'core.zemberek'],
+    packages=['core', 'core.kefir_', 'core.spellChecker', 'core.tika_', 'core.zemberek', 'core.*'],
     url='https://github.com/kemalcanbora/zemberek_parser',
     license='BSD',
     package_data = { '' : ['zemberek-tum-2.0.jar']},
