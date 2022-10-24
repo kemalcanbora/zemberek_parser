@@ -4,7 +4,7 @@ import snowballstemmer
 from nltk import download
 from nltk.corpus import stopwords
 import jpype
-from core.zemberek.settings import *
+from zemcore.zemberek.settings import *
 
 
 ## KULLANIMI ##

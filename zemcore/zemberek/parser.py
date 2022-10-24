@@ -1,9 +1,9 @@
 import os
 
-from core.zemberek.main_libs import nltk_download, ZemberekTool
-from core.kefir_.subject import Person
-from core.kefir_.predication import personal, inferential
-from core.spellChecker.simple_spell_checker import SimpleSpellChecker
+from zemcore.zemberek.main_libs import nltk_download, ZemberekTool
+from zemcore.kefir_.subject import Person
+from zemcore.kefir_.predication import personal, inferential
+from zemcore.spellChecker.simple_spell_checker import SimpleSpellChecker
 
 from MorphologicalAnalysis.FsmMorphologicalAnalyzer import FsmMorphologicalAnalyzer
 from Corpus.Sentence import Sentence
@@ -66,9 +66,11 @@ class Run(Tool):
                 self.result = "Cümle yerine kelime girmeniz gerekiyor"
 
         if self.example == Tool.SENTENCE_CORRECTOR:
-            fsm = FsmMorphologicalAnalyzer(os.getcwd() + "/core/morphological/turkish_dictionary.txt",
-                                           os.getcwd() + "/core/morphological/turkish_misspellings.txt",
-                                           os.getcwd() + "/core/morphological/turkish_finite_state_machine.xml")
+            path = os.path.dirname(os.path.realpath(__file__))
+            fsm = FsmMorphologicalAnalyzer(path+"/turkish_dictionary.txt",
+                                           path+"/turkish_misspellings.txt",
+                                           path+"/turkish_finite_state_machine.xml")
+
             spellChecker = SimpleSpellChecker(fsm)
             sentence = Sentence(self.corpus)
             self.result = spellChecker.spellCheck(sentence)
