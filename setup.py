@@ -13,7 +13,7 @@ with open("requirements.txt") as f:
 
 setup(
     name='zemberek_parser',
-    version='1.1.1',
+    version='1.1.2',
     packages=find_packages(),
     url='https://github.com/kemalcanbora/zemberek_parser',
     license='BSD',
