@@ -1,9 +1,9 @@
 import os
 
 from core.main_libs import nltk_download, ZemberekTool
-from core.kefir.subject import Person
-from core.kefir.predication import personal, inferential
-from core.spellChecker.simple_spell_checker import SimpleSpellChecker
+from .kefir.subject import Person
+from .kefir.predication import personal, inferential
+from .spellChecker.simple_spell_checker import SimpleSpellChecker
 
 from MorphologicalAnalysis.FsmMorphologicalAnalyzer import FsmMorphologicalAnalyzer
 from Corpus.Sentence import Sentence
