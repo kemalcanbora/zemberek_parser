@@ -66,9 +66,9 @@ class Run(Tool):
                 self.result = "Cümle yerine kelime girmeniz gerekiyor"
 
         if self.example == Tool.SENTENCE_CORRECTOR:
-            fsm = FsmMorphologicalAnalyzer(os.getcwd() + "/core/spellChecker/turkish_dictionary.txt",
-                                           os.getcwd() + "/core/spellChecker/turkish_misspellings.txt",
-                                           os.getcwd() + "/core/spellChecker/turkish_finite_state_machine.xml")
+            fsm = FsmMorphologicalAnalyzer(os.getcwd() + "/core/morphological/turkish_dictionary.txt",
+                                           os.getcwd() + "/core/morphological/turkish_misspellings.txt",
+                                           os.getcwd() + "/core/morphological/turkish_finite_state_machine.xml")
             spellChecker = SimpleSpellChecker(fsm)
             sentence = Sentence(self.corpus)
             self.result = spellChecker.spellCheck(sentence)
