@@ -1,8 +1,8 @@
 from Corpus.Sentence import Sentence
 from Dictionary.Word import Word
 from MorphologicalAnalysis.FsmMorphologicalAnalyzer import FsmMorphologicalAnalyzer
-from NGram.NGram import NGram
-from SpellChecker.SimpleSpellChecker import SimpleSpellChecker
+from ngram import NGram
+from SpellChecker.simple_spell_checker import SimpleSpellChecker
 
 
 class NGramSpellChecker(SimpleSpellChecker):

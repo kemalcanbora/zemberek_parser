@@ -4,7 +4,7 @@ from core.main_libs import nltk_download, ZemberekTool
 from kefir.subject import Person
 from kefir.predication import personal, inferential
 from MorphologicalAnalysis.FsmMorphologicalAnalyzer import FsmMorphologicalAnalyzer
-from SpellChecker.SimpleSpellChecker import SimpleSpellChecker
+from SpellChecker.simple_spell_checker import SimpleSpellChecker
 from Corpus.Sentence import Sentence
 
 zemberekTool = ZemberekTool()
