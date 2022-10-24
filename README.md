@@ -32,7 +32,7 @@ MacOS'da otomatik olarak jar dosyasını bulamıyor zemberek_python içerisinde 
 #### Örnekler
 
 ```python
-from core.zemberek.zemberek_parser import Run, Tool
+from core.zemberek.parser import Run, Tool
 
 text = "merhaba"
 result = Run(text, Tool.KELIME_HECELE)
@@ -43,7 +43,7 @@ print(result)
 ```
 
 ```python
-from core.zemberek.zemberek_parser import Run, Tool
+from core.zemberek.parser import Run, Tool
 
 text = "gezegnde bi vibüs var"
 result = Run(text, Tool.SENTENCE_CORRECTOR)
