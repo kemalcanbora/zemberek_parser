@@ -1,4 +1,4 @@
-nltk==3.4.5
+nltk==3.6.6
 JPype1==1.1.2
 snowballstemmer==1.2.1
 nlptoolkit-MorphologicalAnalysis==1.0.44
