@@ -12,14 +12,14 @@ ssl._create_default_https_context = ssl._create_unverified_context
 class PDFParser:
     def __init__(self, file):
         self.localpath = os.path.dirname(os.path.realpath(__file__)) + '/'  # local path
-        self.tikapath = self.localpath + 'tika-app-1.18.jar'  # path to Apache Tika jar file
+        self.tikapath = self.localpath + '_tika-app-1.18.jar'  # path to Apache Tika jar file
         self.file = file
 
     def parse(self):
         if os.path.exists(self.tikapath) == True:
             return self.tika(self.file)
         else:
-            print("Downloading tika-app-1.18.jar..")
+            print("Downloading _tika-app-1.18.jar..")
             with urlopen(tikaURL) as Response:
                 Length = Response.getheader('content-length')
                 BlockSize = 1000000  # default value
