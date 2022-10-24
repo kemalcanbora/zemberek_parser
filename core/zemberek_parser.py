@@ -4,7 +4,7 @@ from core.main_libs import nltk_download, ZemberekTool
 from kefir.subject import Person
 from kefir.predication import personal, inferential
 from MorphologicalAnalysis.FsmMorphologicalAnalyzer import FsmMorphologicalAnalyzer
-from SpellChecker.simple_spell_checker import SimpleSpellChecker
+from spellChecker.simple_spell_checker import SimpleSpellChecker
 from Corpus.Sentence import Sentence
 
 zemberekTool = ZemberekTool()
@@ -65,9 +65,9 @@ class Run(Tool):
                 self.result = "Cümle yerine kelime girmeniz gerekiyor"
 
         if self.example == Tool.SENTENCE_CORRECTOR:
-            fsm = FsmMorphologicalAnalyzer(os.getcwd() + "/SpellChecker/turkish_dictionary.txt",
-                                           os.getcwd() + "/SpellChecker/turkish_misspellings.txt",
-                                           os.getcwd() + "/SpellChecker/turkish_finite_state_machine.xml")
+            fsm = FsmMorphologicalAnalyzer(os.getcwd() + "/spellChecker/turkish_dictionary.txt",
+                                           os.getcwd() + "/spellChecker/turkish_misspellings.txt",
+                                           os.getcwd() + "/spellChecker/turkish_finite_state_machine.xml")
             spellChecker = SimpleSpellChecker(fsm)
             sentence = Sentence(self.corpus)
             self.result = spellChecker.spellCheck(sentence)
