@@ -13,14 +13,14 @@ with open("requirements.txt") as f:
 
 setup(
     name='zemberek_parser',
-    version='1.1.2',
+    version='1.1.3',
     packages=find_packages(),
     url='https://github.com/kemalcanbora/zemberek_parser',
     license='BSD',
-    package_data={'': ['zemberek-tum-2.0.jar']},
+    package_data={'': ['*.jar', '*.xml', '*.txt']},
     author='Kemalcan Bora',
     author_email='kemalcanbora@gmail.com',
-    description='zemberek kutuphanesinin lite python versiyonu',
+    description='Zemberek lite python wrapper',
     classifiers=[
         "License :: OSI Approved :: BSD License",
     ],
