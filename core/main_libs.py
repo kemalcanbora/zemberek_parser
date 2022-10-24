@@ -5,7 +5,7 @@ from nltk import download
 from nltk.corpus import stopwords
 import jpype
 import os
-from zemberek_python.settings import *
+from core.settings import *
 
 
 ## KULLANIMI ##

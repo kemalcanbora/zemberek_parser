@@ -1,7 +1,7 @@
 import os
 from subprocess import PIPE
 from subprocess import run
-from zemberek_python.settings import tikaURL
+from core.settings import tikaURL
 from urllib.request import urlopen
 import ssl
 import io

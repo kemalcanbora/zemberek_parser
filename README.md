@@ -33,7 +33,7 @@ MacOS'da otomatik olarak jar dosyasını bulamıyor zemberek_python içerisinde 
 #### Örnekler
 
 ```python
-from zemberek_parser import Run, Tool
+from core.zemberek_parser import Run, Tool
 
 text = "merhaba"
 result = Run(text, Tool.KELIME_HECELE)
@@ -44,7 +44,7 @@ print(result)
 ```
 
 ```python
-from zemberek_parser import Run, Tool
+from core.zemberek_parser import Run, Tool
 
 text = "gezegnde bi vibüs var"
 result = Run(text, Tool.SENTENCE_CORRECTOR)
@@ -62,3 +62,7 @@ print(result)
 ##### Bug ve Diğer durumlar
  - Kütüphaneyi kullandığınızda karşılaştığınız hataları belirtirseniz (PR, MR açabilirsiniz veya direk <a href="https://www.linkedin.com/in/kemalcan-bora-8b702926/"> bana </a> ulaşabilirsiniz)
  - Tez veya çalışmanızda repoyu kaynak verirseniz başka insanlar da faydalanabilir.
+
+#### CoLab
+ - `!apt-get install openjdk-8-jdk-headless -qq > /dev/null`
+ - `!pip install git+https://github.com/kemalcanbora/zemberek_parser.git`

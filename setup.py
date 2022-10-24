@@ -12,8 +12,8 @@ with open("requirements.txt") as f:
 
 setup(
     name='zemberek_parser',
-    version='1.0.1',
-    packages=['zemberek_python'],
+    version='1.1.1',
+    packages=['core'],
     url='https://github.com/kemalcanbora/zemberek_parser',
     license='BSD',
     package_data = { '' : ['zemberek-tum-2.0.jar']},

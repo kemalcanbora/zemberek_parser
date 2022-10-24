@@ -1,4 +1,6 @@
-from zemberek_python.main_libs import nltk_download, ZemberekTool
+import os
+
+from core.main_libs import nltk_download, ZemberekTool
 from kefir.subject import Person
 from kefir.predication import personal, inferential
 from tika import pdfconverter
@@ -68,9 +70,9 @@ class Run(Tool):
                 self.result = "PDF path yanlış olabilir veya PDF olmayabilir"
 
         if self.example == Tool.SENTENCE_CORRECTOR:
-            fsm = FsmMorphologicalAnalyzer("./SpellChecker/turkish_dictionary.txt",
-                                           "./SpellChecker/turkish_misspellings.txt",
-                                           "./SpellChecker/turkish_finite_state_machine.xml")
+            fsm = FsmMorphologicalAnalyzer(os.getcwd()+"/SpellChecker/turkish_dictionary.txt",
+                                           os.getcwd()+"/SpellChecker/turkish_misspellings.txt",
+                                           os.getcwd()+"/SpellChecker/turkish_finite_state_machine.xml")
             spellChecker = SimpleSpellChecker(fsm)
             sentence = Sentence(self.corpus)
             self.result = spellChecker.spellCheck(sentence)
